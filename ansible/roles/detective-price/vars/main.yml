@@ -1,0 +1,4 @@
+---
+image: 'gitlab.office.myjet.tech:5000/infrastructure1/detective-price/detective-price'
+
+registry_url: 'gitlab.office.myjet.tech:5000'

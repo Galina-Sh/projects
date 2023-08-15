@@ -1,0 +1,26 @@
+---
+
+- name: log into registry
+  docker_login:
+    registry: "{{ registry_url }}"
+    username: "{{ registry_login }}"
+    password: "{{ registry_password }}"
+    reauthorize: yes
+
+## Currently no any secrets
+- name: get secure env configs
+  template:
+    src: "templates/{{ app_name }}.secrets.mapping.j2"
+    dest: "{{ app_name }}.secure.env"
+
+
+# here we'll use v2 compose for quotas support
+# more at https://github.com/docker/compose/issues/4513
+- name: common compose-definitions
+  import_tasks: "compose-inline-common.yml"
+
+- name: check service network port availability
+  wait_for:
+    delay: 5
+    timeout: 10
+    port: "{{ exposed_port }}"

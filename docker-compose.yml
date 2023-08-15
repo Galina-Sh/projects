@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  detective-price:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: gitlab.office.myjet.tech:5000/infrastructure1/detective-price/detective-price:$IMAGE_TAG

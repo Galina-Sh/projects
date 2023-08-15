@@ -1,0 +1,27 @@
+[all:vars]
+# general
+ansible_ssh_private_key_file=./files/dply_mysky_prod.key
+dply_user=pricing-app
+app_name=detective-price
+
+# repository
+registry_login="ansible-dply-prd"
+
+# container network
+back_exposed_port=8585
+back_container_port=8585
+
+# general-level parameters
+
+[app_servers]
+ru-msk-dockerhost01.myjet.local
+
+[app_servers:vars]
+# Performance Knobs
+# (assuming that at least we're rolling on 8 cores/32G standalone dockerhost)
+throttle_cpus="1"
+throttle_mem="512M"
+reservation_mem="256M"
+
+# logging
+loki_url=http://loki-prod01.myjet.local:3100/loki/api/v1/push

@@ -1,0 +1,30 @@
+- name: recreate services & start
+  docker_compose:
+    project_name: "{{ app_name }}"
+    definition:
+      version: "{{ compose_version }}"
+      services:
+        detective-price:
+          image: "{{ image }}:{{ image_tag }}"
+          cpus: "{{ throttle_cpus }}"
+          mem_limit: "{{ throttle_mem  }}"
+          mem_reservation: "{{ reservation_mem }}"
+          ports:
+            - "{{ back_exposed_port }}:{{ back_container_port }}"
+          env_file:
+            - "~/{{ app_name }}.secure.env"
+          logging:
+            driver: "loki"
+            options:
+              max-size: "{{ logs_max_size }}"
+              max-file: "{{ logs_max_file }}"
+              loki-url: "{{ loki_url }}"
+              loki-batch-size: "{{ loki_batch_size }}"
+              loki-timeout: "{{ loki_timeout }}"
+              loki-retries: "{{ loki_retries }}"
+              loki-max-backoff: "{{ loki_max_backoff }}"
+              mode: "non-blocking"
+              keep-file: "true"
+    build: no
+    pull: yes
+    recreate: always

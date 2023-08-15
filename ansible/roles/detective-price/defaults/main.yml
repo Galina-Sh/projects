@@ -1,0 +1,15 @@
+---
+ansible_python_interpreter: "/usr/bin/python3"
+compose_version: '3.7'
+exposed_port: "{{ back_exposed_port }}"
+container_port: "{{ back_container_port }}"
+registry_password: '{{ registry_password }}'
+
+# logging options
+loki_url: "http://loki-dev01.myjet.local:3200/loki/api/v1/push"
+loki_batch_size: "400"
+loki_timeout: "3s"
+loki_retries: "2"
+loki_max_backoff: "1s"
+logs_max_size: "100m"
+logs_max_file: "10"

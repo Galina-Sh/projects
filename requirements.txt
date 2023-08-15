@@ -1,0 +1,7 @@
+psycopg2
+gspread
+pandas
+datetime
+slack_sdk
+slack_bolt
+tabulate
